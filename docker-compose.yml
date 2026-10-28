@@ -1,0 +1,44 @@
+services:
+  web:
+    image: ghcr.io/azuracast/azuracast:latest
+    restart: unless-stopped
+
+    env_file:
+      - ./azuracast.env
+      - ./.env
+
+    ports:
+      - "80:80"
+      - "443:443"
+      - "2022:2022"
+      - "8000:8000"
+      - "8005:8005"
+      - "8006-8496:8006-8496"
+
+    volumes:
+      - db_data:/var/lib/mysql
+      - station_data:/var/azuracast/stations
+      - backups:/var/azuracast/backups
+      - uploads:/var/azuracast/storage/uploads
+      - redis_data:/var/azuracast/storage/redis
+      - sftpgo_data:/var/azuracast/storage/sftpgo
+      - acme:/var/azuracast/storage/acme
+
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "5"
+
+volumes:
+  db_data:
+  station_data:
+  backups:
+  uploads:
+  redis_data:
+  sftpgo_data:
+  acme:
