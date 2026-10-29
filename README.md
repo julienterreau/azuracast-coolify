@@ -6,15 +6,13 @@ Important:
 - Do not commit real production secrets.
 - Use `.env.example` and `azuracast.env.example` as templates.
 - In Coolify, inject the real values as environment variables or create local untracked files on the server.
+- This server already uses port 80/443, so AzuraCast is intentionally exposed on 8080/8443 instead.
 
-## Recommended domain setup
+## Access URL
 
-If your existing website is already on the root domain, use a dedicated subdomain for AzuraCast:
-- Main site: https://rustyjamesblog.link
-- Stream: https://radio.rustyjamesblog.link
-
-DNS example:
-- radio A 45.141.21.28
+Use the server IP directly:
+- http://45.141.21.28:8080
+- https://45.141.21.28:8443
 
 ## Files
 
@@ -42,7 +40,7 @@ Use values like these in Coolify or create local files:
 TZ=Europe/Paris
 AZURACAST_PUID=1000
 AZURACAST_PGID=1000
-INIT_BASE_URL=https://radio.rustyjamesblog.link
+INIT_BASE_URL=http://45.141.21.28:8080
 AZURACAST_HTTP_PORT=80
 AZURACAST_HTTPS_PORT=443
 AZURACAST_SFTP_PORT=2022
@@ -55,6 +53,6 @@ ENABLE_WEB_UPDATER=false
 
 ## Notes
 
-- This repo is meant for deployment automation via Coolify.
+- This repository is intended for deployment automation via Coolify.
 - The real `.env` and `azuracast.env` files must remain outside version control.
-- The GitHub App / webhook page shown by some external integrations is optional and not required for AzuraCast itself.
+- Port 80/443 are already occupied by another service on this server, so the app is configured to run on 8080/8443.
